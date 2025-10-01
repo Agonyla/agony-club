@@ -1,5 +1,8 @@
 package com.agony.subject.application.controller;
 
+import com.agony.subject.infra.basic.entity.SubjectCategory;
+import com.agony.subject.infra.basic.service.SubjectCategoryService;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/subject")
 public class SubjectController {
 
+    @Resource
+    private SubjectCategoryService subjectCategoryService;
+
     @GetMapping("/test")
     public String test() {
-        return "hello world";
+
+        SubjectCategory subjectCategory = subjectCategoryService.queryById(1L);
+        return subjectCategory.getCategoryName();
     }
 }
