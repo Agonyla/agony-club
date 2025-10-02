@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.105.54.147:3306/jc_club?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://39.105.54.147:3306/jc_club?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: 19991209
+    password: gStq9ledLNG9PbeLOdga57vr+Xzx0gkWCKHwRg8PkGXMVKFJj6zD5FOStjZgqClhSpWNA964NHhE00VLtERPsQ==
     type: com.alibaba.druid.pool.DruidDataSource
 
     ## ================druid===================
@@ -26,8 +26,13 @@ spring:
           log-slow-sql: true
         wall:
           enabled: true
+        config:
+          enabled: true
+      connection-properties: config.decrypt=true;config.decrypt.key=${publicKey};
 
   # ========================时间格式===================
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAInLBI2B+PObnD/MqT6JbT2NsVLbkqATKcFUBQdJuU1pLDB8s+n4QcJQ/qxoD/dTyrWXA3oTL06iDb0DTad5pRcCAwEAAQ==
