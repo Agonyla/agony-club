@@ -6,6 +6,7 @@ import com.agony.subject.common.entity.Result;
 import com.agony.subject.domain.entity.SubjectCategoryBO;
 import com.agony.subject.domain.service.SubjectCategoryDomainService;
 import com.alibaba.fastjson.JSON;
+import com.google.common.base.Preconditions;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,17 +30,22 @@ public class SubjectCategoryController {
     private SubjectCategoryDomainService subjectCategoryDomainService;
 
     @PostMapping("/add")
-    public Result<Boolean> addCategory(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
+    public Result<?> addCategory(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
 
         try {
             if (log.isInfoEnabled()) {
                 log.info("SubjectCategoryController.add.dto:{}", JSON.toJSONString(subjectCategoryDTO));
             }
+            Preconditions.checkNotNull(subjectCategoryDTO.getCategoryType(), "分类类型不能为空");
+            Preconditions.checkNotNull(subjectCategoryDTO.getCategoryName(), "分类名称不能为空");
+            Preconditions.checkNotNull(subjectCategoryDTO.getParentId(), "分类父级id不能为空");
+
             SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.convert(subjectCategoryDTO);
             subjectCategoryDomainService.add(subjectCategoryBO);
             return Result.success(true);
         } catch (Exception e) {
-            return Result.fail(false);
+            log.error("SubjectCategoryController.add.error:{}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
         }
 
     }
