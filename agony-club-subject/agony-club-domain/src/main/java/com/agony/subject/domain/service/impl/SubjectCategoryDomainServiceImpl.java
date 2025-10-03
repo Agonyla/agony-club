@@ -5,7 +5,9 @@ import com.agony.subject.domain.entity.SubjectCategoryBO;
 import com.agony.subject.domain.service.SubjectCategoryDomainService;
 import com.agony.subject.infra.basic.entity.SubjectCategory;
 import com.agony.subject.infra.basic.service.SubjectCategoryService;
+import com.alibaba.fastjson.JSON;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @describe:
  */
 @Service
+@Slf4j
 public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainService {
 
     @Resource
@@ -22,6 +25,9 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
     @Override
     public void add(SubjectCategoryBO subjectCategoryBO) {
 
+        if (log.isInfoEnabled()) {
+            log.info("SubjectCategoryDomainServiceImpl.add.bo:{}", JSON.toJSONString(subjectCategoryBO));
+        }
         SubjectCategory subjectCategory = SubjectCategoryConverter.INSTANCE.convert(subjectCategoryBO);
 
         subjectCategoryService.insert(subjectCategory);

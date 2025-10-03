@@ -3,7 +3,9 @@ package com.agony.subject.infra.basic.service.impl;
 import com.agony.subject.infra.basic.entity.SubjectCategory;
 import com.agony.subject.infra.basic.mapper.SubjectCategoryDao;
 import com.agony.subject.infra.basic.service.SubjectCategoryService;
+import com.alibaba.fastjson.JSON;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @since 2025-10-01 20:38:44
  */
 @Service("subjectCategoryService")
+@Slf4j
 public class SubjectCategoryServiceImpl implements SubjectCategoryService {
     @Resource
     private SubjectCategoryDao subjectCategoryDao;
@@ -38,6 +41,10 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
      */
     @Override
     public SubjectCategory insert(SubjectCategory subjectCategory) {
+
+        if (log.isInfoEnabled()) {
+            log.info("SubjectCategoryServiceImpl.insert.subjectCategory:{}", JSON.toJSONString(subjectCategory));
+        }
         this.subjectCategoryDao.insert(subjectCategory);
         return subjectCategory;
     }
