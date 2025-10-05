@@ -10,6 +10,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author: Agony
  * @create: 2025/10/2 23:32
@@ -31,5 +33,22 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         SubjectCategory subjectCategory = SubjectCategoryConverter.INSTANCE.convert(subjectCategoryBO);
 
         subjectCategoryService.insert(subjectCategory);
+    }
+
+    @Override
+    public List<SubjectCategoryBO> queryPrimaryCategory() {
+
+        SubjectCategory subjectCategory = new SubjectCategory();
+        subjectCategory.setParentId(0L);
+        // todo 这里还需要重新修改
+
+        List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryPrimaryCategory(subjectCategory);
+
+        List<SubjectCategoryBO> subjectCategoryBOList = SubjectCategoryConverter.INSTANCE.convert(subjectCategoryList);
+
+        if (log.isInfoEnabled()) {
+            log.info("SubjectCategoryDomainServiceImpl.queryPrimaryCategory.boList:{}", JSON.toJSONString(subjectCategoryBOList));
+        }
+        return subjectCategoryBOList;
     }
 }

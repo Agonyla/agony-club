@@ -2,6 +2,8 @@ package com.agony.subject.infra.basic.service;
 
 import com.agony.subject.infra.basic.entity.SubjectCategory;
 
+import java.util.List;
+
 /**
  * 题目分类(SubjectCategory)表服务接口
  *
@@ -42,4 +44,10 @@ public interface SubjectCategoryService {
      */
     boolean deleteById(Long id);
 
+    /**
+     * 查询岗位大类
+     *
+     * @return 实例对象列表
+     */
+    List<SubjectCategory> queryPrimaryCategory(SubjectCategory subjectCategory);
 }

@@ -5,6 +5,8 @@ import com.agony.subject.domain.entity.SubjectCategoryBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * @author: Agony
  * @create: 2025/10/2 23:52
@@ -16,4 +18,6 @@ public interface SubjectCategoryDTOConverter {
     SubjectCategoryDTOConverter INSTANCE = Mappers.getMapper(SubjectCategoryDTOConverter.class);
 
     SubjectCategoryBO convert(SubjectCategoryDTO subjectCategoryDTO);
+
+    List<SubjectCategoryDTO> convert(List<SubjectCategoryBO> subjectCategoryBOList);
 }
