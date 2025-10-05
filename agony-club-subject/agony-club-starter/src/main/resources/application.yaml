@@ -37,4 +37,32 @@ spring:
 
 logging:
   config: classpath:log4j2-spring.xml
+
 publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAInLBI2B+PObnD/MqT6JbT2NsVLbkqATKcFUBQdJuU1pLDB8s+n4QcJQ/qxoD/dTyrWXA3oTL06iDb0DTad5pRcCAwEAAQ==
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan:
+        - com.agony.subject.application.controller
+
+#   - group: '用户模块'
+#     paths-to-match: '/user/**'
+#     packages-to-scan: com.example.controller.user
+#
+#   - group: '订单模块'
+#     paths-to-match: '/order/**'
+#     packages-to-scan: com.example.controller.order
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
