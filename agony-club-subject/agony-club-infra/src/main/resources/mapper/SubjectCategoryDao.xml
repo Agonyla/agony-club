@@ -111,7 +111,7 @@
     </select>
 
     <!-- 查询岗位大类-->
-    <select id="queryPrimaryCategory" resultMap="SubjectCategoryMap">
+    <select id="queryCategory" resultMap="SubjectCategoryMap">
         select *
         from subject_category
         <where>

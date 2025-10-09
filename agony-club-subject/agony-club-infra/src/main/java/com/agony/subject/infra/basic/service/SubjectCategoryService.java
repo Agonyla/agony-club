@@ -49,5 +49,5 @@ public interface SubjectCategoryService {
      *
      * @return 实例对象列表
      */
-    List<SubjectCategory> queryPrimaryCategory(SubjectCategory subjectCategory);
+    List<SubjectCategory> queryCategory(SubjectCategory subjectCategory);
 }

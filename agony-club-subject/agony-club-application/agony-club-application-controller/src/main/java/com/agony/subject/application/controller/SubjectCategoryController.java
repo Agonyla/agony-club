@@ -51,18 +51,47 @@ public class SubjectCategoryController {
         }
     }
 
+    /**
+     * 查询分类
+     *
+     * @return
+     */
     @PostMapping("/queryPrimaryCategory")
     public Result<List<SubjectCategoryDTO>> queryPrimaryCategory() {
 
+        SubjectCategoryBO subjectCategoryBO = new SubjectCategoryBO();
         try {
-            List<SubjectCategoryBO> subjectCategoryBOList = subjectCategoryDomainService.queryPrimaryCategory();
+            List<SubjectCategoryBO> subjectCategoryBOList = subjectCategoryDomainService.queryCategory(subjectCategoryBO);
             List<SubjectCategoryDTO> subjectCategoryDTOList = SubjectCategoryDTOConverter.INSTANCE.convert(subjectCategoryBOList);
             return Result.success(subjectCategoryDTOList);
         } catch (Exception e) {
             log.error("SubjectCategoryController.queryPrimaryCategory.error:{}", e.getMessage(), e);
             return Result.fail(null);
         }
+    }
 
+    /**
+     * 条件查询分类
+     *
+     * @param subjectCategoryDTO
+     * @return
+     */
+    @PostMapping("/queryCategoryByPrimary")
+    public Result<List<SubjectCategoryDTO>> queryCategoryByPrimary(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
 
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectCategoryController.queryCategoryByPrimary.dto:{}", JSON.toJSONString(subjectCategoryDTO));
+            }
+            Preconditions.checkNotNull(subjectCategoryDTO.getParentId(), "父类id不能为空");
+
+            SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.convert(subjectCategoryDTO);
+            List<SubjectCategoryBO> subjectCategoryBOList = subjectCategoryDomainService.queryCategory(subjectCategoryBO);
+            List<SubjectCategoryDTO> subjectCategoryDTOList = SubjectCategoryDTOConverter.INSTANCE.convert(subjectCategoryBOList);
+            return Result.success(subjectCategoryDTOList);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.queryCategoryByPrimary.error:{}", e.getMessage(), e);
+            return Result.fail(null);
+        }
     }
 }

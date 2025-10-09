@@ -36,13 +36,10 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
     }
 
     @Override
-    public List<SubjectCategoryBO> queryPrimaryCategory() {
+    public List<SubjectCategoryBO> queryCategory(SubjectCategoryBO subjectCategoryBO) {
 
-        SubjectCategory subjectCategory = new SubjectCategory();
-        subjectCategory.setParentId(0L);
-        // todo 这里还需要重新修改
-
-        List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryPrimaryCategory(subjectCategory);
+        SubjectCategory subjectCategory = SubjectCategoryConverter.INSTANCE.convert(subjectCategoryBO);
+        List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryCategory(subjectCategory);
 
         List<SubjectCategoryBO> subjectCategoryBOList = SubjectCategoryConverter.INSTANCE.convert(subjectCategoryList);
 

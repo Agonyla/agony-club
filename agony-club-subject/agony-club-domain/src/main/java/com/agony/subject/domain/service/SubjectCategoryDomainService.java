@@ -18,5 +18,5 @@ public interface SubjectCategoryDomainService {
      *
      * @return 实例对象BO列表
      */
-    List<SubjectCategoryBO> queryPrimaryCategory();
+    List<SubjectCategoryBO> queryCategory(SubjectCategoryBO subjectCategoryBO);
 }
